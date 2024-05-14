@@ -60,8 +60,28 @@ export class Client {
    * @return {Promise<About>}
    * */
   async getInfo() {
-    throw new Error("Not implemented");
+    const response = await fetch("https://api.spacexdata.com/v4/company");
+    const data = await response.json();
+
+    const about = {
+      founder: data.founder,
+      founded: data.founded,
+      employees: data.employees,
+      ceo: data.ceo,
+      coo: data.coo,
+      cto: data.cto,
+      valuation: data.valuation,
+      headquarters: {
+        address: data.headquarters.address,
+        city: data.headquarters.city,
+        state: data.headquarters.state
+      },
+      summary: data.summary
+    };
+
+    return about;
   }
+
 
   /**
    * Должен возвращать информацию о всех событиях
@@ -73,8 +93,18 @@ export class Client {
    * @return {Promise<EventBrief[]>}
    * */
   async getHistory() {
-    throw new Error("Not implemented");
+    const response = await fetch("https://api.spacexdata.com/v4/history");
+    const data = await response.json();
+
+    const events = data.map(event => ({
+      id: event.id,
+      title: event.title
+    }));
+
+    return events;
   }
+
+
 
   /**
    * Должен возвращать информацию о запрошенном событии
@@ -90,8 +120,20 @@ export class Client {
    * @return {Promise<EventFull>}
    * */
   async getHistoryEvent(id) {
-    throw new Error("Not implemented");
+    const response = await fetch(`https://api.spacexdata.com/v4/history/${id}`);
+    const data = await response.json();
+
+    const event = {
+      id: data.id,
+      title: data.title,
+      event_date_utc: data.event_date_utc,
+      details: data.details,
+      links: data.links
+    };
+
+    return event;
   }
+
 
   /**
    * Должен возвращать информацию о всех ракетах
@@ -103,8 +145,17 @@ export class Client {
    * @return {Promise<RocketBrief[]>}
    * */
   async getRockets() {
-    throw new Error("Not implemented");
+    const response = await fetch("https://api.spacexdata.com/v4/rockets");
+    const data = await response.json();
+
+    const rockets = data.map(rocket => ({
+      rocket_id: rocket.id,
+      rocket_name: rocket.name
+    }));
+
+    return rockets;
   }
+
 
   /**
    * Должен возвращать информацию о запрошенной ракете
@@ -128,7 +179,25 @@ export class Client {
    * @return {Promise<RocketFull>}
    * */
   async getRocket(id) {
-    throw new Error("Not implemented");
+    const response = await fetch(`https://api.spacexdata.com/v4/rockets/${id}`);
+    const data = await response.json();
+
+    const rocket = {
+      rocket_id: data.id,
+      rocket_name: data.name,
+      first_flight: data.first_flight,
+      description: data.description,
+      wikipedia: data.wikipedia,
+      flickr_images: data.flickr_images,
+      height: data.height,
+      diameter: data.diameter,
+      mass: data.mass,
+      engines: data.engines,
+      first_stage: data.first_stage,
+      second_stage: data.second_stage
+    };
+
+    return rocket;
   }
 
   /**
@@ -145,8 +214,21 @@ export class Client {
    * @return {Promise<Roadster>}
    * */
   async getRoadster() {
-    throw new Error("Not implemented");
+    const response = await fetch("https://api.spacexdata.com/v4/roadster");
+    const data = await response.json();
+
+    const roadster = {
+      name: data.name,
+      launch_date_utc: data.launch_date_utc,
+      details: data.details,
+      earth_distance_km: data.earth_distance_km,
+      mars_distance_km: data.mars_distance_km,
+      wikipedia: data.wikipedia
+    };
+
+    return roadster;
   }
+
 
   /**
    * Должен возвращать информацию о всех посланных на Марс предметах
