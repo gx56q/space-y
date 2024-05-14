@@ -26,5 +26,8 @@ app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
 
-
 app.use(express.static("spa/build"));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.resolve("spa/build/index.html"));
+});
