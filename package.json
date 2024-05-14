@@ -23,7 +23,8 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "better-npm-run": "0.1.1",
