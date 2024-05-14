@@ -242,9 +242,10 @@ export class Client {
    * @property {?boolean} important
    *
    * @return {Promise<Item[]>}
-   * */
+   */
   async getSentToMars() {
-    throw new Error("Not implemented");
+    const response = await fetch("/api/sentToMars");
+    return response.json();
   }
 
   /**
@@ -260,9 +261,16 @@ export class Client {
    *
    * @param {ItemToSend} item
    * @return {Promise<Item[]>}
-   * */
+   */
   async sendToMars(item) {
-    throw new Error("Not implemented");
+    const response = await fetch("/api/sendToMars", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(item)
+    });
+    return response.json();
   }
 
   /**
@@ -271,8 +279,11 @@ export class Client {
    *
    * @param {Item} item
    * @return {Promise<Item[]>}
-   * */
+   */
   async cancelSendingToMars(item) {
-    throw new Error("Not implemented");
+    const response = await fetch(`/api/cancelSendingToMars/${item.id}`, {
+      method: "DELETE"
+    });
+    return response.json();
   }
 }
